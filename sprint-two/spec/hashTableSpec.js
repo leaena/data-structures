@@ -36,16 +36,19 @@ describe("hashTable", function() {
     hashTable.insert("cat", "Meowmers");
     hashTable.insert("dog", "Mr. Barky");
     hashTable.insert("bird", "Tweetface");
-    expect(hashTable._limit).toEqual(6);
+    hashTable.insert("fish", "bubbles");
+    expect(hashTable._limit).toEqual(12);
   });
   it("should automatically resize when size becomes smaller than limit", function(){
     hashTable.insert("person", "lindsey");
     hashTable.insert("cat", "Meowmers");
     hashTable.insert("dog", "Mr. Barky");
     hashTable.insert("bird", "Tweetface");
+    hashTable.insert("fish", "bubbles");
     hashTable.remove("cat");
     hashTable.remove("bird");
-    expect(hashTable._limit).toEqual(3);
+    hashTable.remove("dog");
+    expect(hashTable._limit).toEqual(6);
   });
 
   // add more tests!

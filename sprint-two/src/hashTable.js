@@ -1,5 +1,5 @@
 var HashTable = function(){
-  this._limit = 3;
+  this._limit = 6;
   this._storage = makeLimitedArray(this._limit);
   this._size = 0;
 
@@ -36,7 +36,7 @@ HashTable.prototype.insert = function(k, v){
 
 HashTable.prototype.retrieve = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
-  var bucket = this._storage.get(i);
+  var bucket = this._storage.get(i) || [];
   for (var n = 0; n < bucket.length; n++){
     var bucketItem = bucket[n];
     if (bucketItem[0] === k){
@@ -47,7 +47,7 @@ HashTable.prototype.retrieve = function(k){
 
 HashTable.prototype.remove = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
-  var bucket = this._storage.get(i);
+  var bucket = this._storage.get(i) || [];
   for (var n = 0; n < bucket.length; n++) {
     var bucketItem = bucket[n];
     if (bucketItem[0] === k) {
@@ -56,9 +56,9 @@ HashTable.prototype.remove = function(k){
       break;
     }
   }
-  // if (this._size < (this._limit * 0.25)){
-  //   this.resize(0.5);
-  // }
+  if (this._size < (this._limit * 0.25)){
+    this.resize(0.5);
+  }
 };
 
 HashTable.prototype.resize = function(newLimit){
